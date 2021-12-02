@@ -40,10 +40,9 @@ class ProStagesController extends AbstractController
 		/**
      * @Route("/stages/{id}", name="pro_stages-stages")
      */
-    public function stages(): Response
+    public function stages(id): Response
     {
-        return $this->render('pro_stages/stages.html.twig', [
-            'controller_name' => 'ProStagesController',
-        ]);
+		return $this - > render ('pro_stages/stages.html.twig',['idRessource '= >$id ]);
+
     }
 }
