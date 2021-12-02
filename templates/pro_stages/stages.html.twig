@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Entreprises{% endblock %}
 
 {% block body %}
 <style>
@@ -9,6 +9,6 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Bienvenue sur la page d'accueil de Prostages</h1>
+    <h1> Cette page affichera le descriptif du stage ayant pour identifiant {{ app.request.attributes.get('id') }}</h1>
 </div>
 {% endblock %}
