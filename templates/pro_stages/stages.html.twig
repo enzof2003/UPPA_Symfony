@@ -3,12 +3,59 @@
 {% block title %}Entreprises{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stage n°{{id}}</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="titreSite">
+                    <h1> ProStage </h1>
+                </div>
+                <div class="titrePage">
+                    <h2>{{titrePage}}</h2>
+                </div>
+        </div>
+        <div class="infoStage">
+            <div class="gauche">
+                <div class="headerGauche">
+                    <div class="imageOffre">
 
-<div class="example-wrapper">
-    <h1> Cette page affichera le descriptif du stage ayant pour identifiant {{ app.request.attributes.get('id') }}</h1>
-</div>
+                    </div>
+                    <div class="titreOffre">
+                        <h1> {{titreOffre}} </h2>
+                    </div>
+                    <div class="entreprise">
+                        <h3> Proposé par : {{entreprise}} </h3>
+                    </div>
+                </div>
+                <div class="description">
+                    <h2> Description : </h2>
+                    <p> {{description}}
+                </div>
+                <div class="id">
+                    <h4> ID : {{id}} </h4>
+                </div>
+
+            </div>
+            <div class="droite">
+                <div class="formation">
+                    <h3> Formation : {{formation}} </h3>
+                </div>
+                <div class="contact">
+                    <h3> Mail de contact : {{adrMail}} </h3>
+                </div>
+                <div class="siteWeb">
+                    <h3> Site Web : {{siteWeb}} </h3>
+                </div>
+                <div class="secteur">
+                    <h3> Secteur d'activité : {{secteur}} </h3>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>
 {% endblock %}

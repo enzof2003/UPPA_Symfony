@@ -3,12 +3,49 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accueil</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="titreSite">
+                    <h1> ProStage </h1>
+                </div>
+                <div class="titrePage">
+                    <h2>{{titrePage}}</h2>
+                </div>
+            </div>
+            <div class="optionsRecherches">
+                <h3>Recherche par ordre alphabetique </h3>
+            </div>
 
-<div class="example-wrapper">
-    <h1>Bienvenue sur la page d'accueil de Prostages</h1>
-</div>
+            {#{% for offre in offres %}#}
+                <div class="offreStage">
+                    <div class="gauche">
+                        <div class="imageOffre">
+                            <img src="{#{{offre.lienImage}}#}" alt="{#{{offre.titre}}#}"width="200" height="200">
+                        </div>
+                        <div class="titreOffre">
+                            <h3> {#{{offre.titre}}#} </h3>
+                        </div>
+                    </div>
+                    <div class="centre">
+                        <div class="centreHaut">
+                            <h4> Formation : {#{{offre.formation}}#} </h4>
+                        </div>
+                        <div class="centreBas">
+                            <h4> Entreprise : {#{{offre.entreprise}}#} </h4>
+                        </div>
+                    </div>
+                    <div class="droite">
+                        <button onclick="location.href='http://127.0.0.1:8000/stages/{#{{offre.id}}#}'" type="button">Plus d'informations</button>
+                    </div>
+                </div>
+            {#{% endfor %}#}
+        </div>
+    </body>
+</html>
 {% endblock %}
