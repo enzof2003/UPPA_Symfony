@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Stage;
+use App\Entity\Entreprise;
+use App\Entity\Formation;
 
 class ProStagesController extends AbstractController
 {
@@ -19,15 +22,21 @@ class ProStagesController extends AbstractController
         ]);
     }
 	/**
-     * @Route("/entreprises/{entrepriseCherche}", name="pro_stages-entreprises")
+     * @Route("/entreprises/{id}", name="pro_stages-entreprises")
      */
-    public function entreprises($entrepriseCherche): Response
+    public function entreprises($id): Response
     {
+        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
+        $repositoryEntreprise=$this->getDoctrine()->getRepository(Entreprise::class);
+        $tupleEntreprise = $repositoryEntreprise->find($id);
+        $stages=$repositoryStage->findByEntreprise($tupleEntreprise);
+        $titreEntreprise=$tupleEntreprise->getNom();
         return $this->render('pro_stages/entreprises.html.twig', [
             'controller_name' => 'ProStagesController',
-            'entrepriseCherche' => $entrepriseCherche,
+            'entrepriseCherche' => '$titreEntreprise',
             'titrePage' => 'Recherche par entreprise',
         ]);
+        
     }
 	
 		/**
@@ -37,9 +46,9 @@ class ProStagesController extends AbstractController
     {
         return $this->render('pro_stages/formations.html.twig', [
             'controller_name' => 'ProStagesController',
-            'formationCherche' => $formationCherche,
             'titrePage' => 'Recherche par formation',
         ]);
+        
     }
 	
 		/**
