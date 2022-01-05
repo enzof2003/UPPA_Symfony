@@ -18,33 +18,30 @@
                     <h2>{{titrePage}}</h2>
                 </div>
             </div>
-            <div class="optionsRecherches">
-                <h3>Recherche par ordre alphabetique </h3>
-            </div>
-
-            {#{% for offre in offres %}#}
+            {% for stage in stages %}
                 <div class="offreStage">
                     <div class="gauche">
-                        <div class="imageOffre">
-                            <img src="{#{{offre.lienImage}}#}" alt="{#{{offre.titre}}#}"width="200" height="200">
-                        </div>
                         <div class="titreOffre">
-                            <h3> {#{{offre.titre}}#} </h3>
+                            <h3> {#{{stage.titre}}#} </h3>
                         </div>
                     </div>
                     <div class="centre">
                         <div class="centreHaut">
-                            <h4> Formation : {#{{offre.formation}}#} </h4>
+                            <h4> Formation :  </h4>
+                            {% for formation in formations %}
+                                <h6><a href="/stages/{{formation.id}}"> {{formation.nomCourt}} </a></h6>
+                            {% endfor %}
                         </div>
                         <div class="centreBas">
-                            <h4> Entreprise : {#{{offre.entreprise}}#} </h4>
+                            <h4> Entreprise : {{stage.entreprise}}#} </h4>
+                            <h6><a href="/stages/{{entreprise.id}}"> {{entreprise.nom}} </a></h6>
                         </div>
                     </div>
                     <div class="droite">
-                        <button onclick="location.href='http://127.0.0.1:8000/stages/{#{{offre.id}}#}'" type="button">Plus d'informations</button>
+                        <button onclick="location.href='http://127.0.0.1:8000/stages/{{stage.id}}'" type="button">Plus d'informations</button>
                     </div>
                 </div>
-            {#{% endfor %}#}
+            {% endfor %}
         </div>
     </body>
 </html>

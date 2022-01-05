@@ -16,9 +16,12 @@ class ProStagesController extends AbstractController
      */
     public function index(): Response
     {
+        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
+        $stages=$repositoryStage->findAll();
         return $this->render('pro_stages/index.html.twig', [
             'controller_name' => 'ProStagesController',
             'titrePage' => 'Page d\'accueil',
+            'stages'=> $stages,
         ]);
     }
 	/**
@@ -33,20 +36,28 @@ class ProStagesController extends AbstractController
         $titreEntreprise=$tupleEntreprise->getNom();
         return $this->render('pro_stages/entreprises.html.twig', [
             'controller_name' => 'ProStagesController',
-            'entrepriseCherche' => '$titreEntreprise',
+            'entrepriseCherche' => $titreEntreprise,
             'titrePage' => 'Recherche par entreprise',
+            'stages'=> $stages,
         ]);
         
     }
 	
 		/**
-     * @Route("/formations/{formationCherche}", name="pro_stages-formations")
+     * @Route("/formations/{id}", name="pro_stages-formations")
      */
-    public function formations($formationCherche): Response
+    public function formations($id): Response
     {
+        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
+        $repositoryFormation=$this->getDoctrine()->getRepository(Formation::class);
+        $tupleFormation= $repositoryFormation->find($id);
+        $stages=$repositoryStage->findByEntreprise($tupleFormation);
+        $titreFormation=$tupleFormation->getNomLong();
         return $this->render('pro_stages/formations.html.twig', [
             'controller_name' => 'ProStagesController',
+            'formationCherche' => $titreFormation,
             'titrePage' => 'Recherche par formation',
+            'stages'=> $stages,
         ]);
         
     }
