@@ -19,6 +19,10 @@ class AppFixtures extends Fixture
         $dutInfo = new Formation();
         $dutInfo->setNomLong("Diplôme Universitaire Technologique Informatique");
         $dutInfo->setNomCourt("DUT Info");
+
+        $LPInfo = new Formation();
+        $LPInfo->setNomLong("Licence Professionnelle Multimédia");
+        $LPInfo->setNomCourt("LP Mult.");
         
 
         $nbEntreprises = $faker->numberBetween($min = 5, $max = 10);
@@ -32,19 +36,31 @@ class AppFixtures extends Fixture
             
             //Génération des stages de chaque entreprise
             $nbStages = $faker->numberBetween($min = 0, $max = 4);
-            for($i = 0; $i < $nbEntreprises ; $i++)
+            for($j = 0; $j < $nbStages ; $j++)
             {
-                $stage = new Entreprise;
+                $stage = new Stage;
                 $stage->setTitre($faker->realText($maxNbChars = 40, $indexSize = 2));
                 $stage->setDescMission($faker->realText($maxNbChars = 1200, $indexSize = 2));
-                $stage->setDescMission($faker->email);
                 $stage->setEntreprise($entreprise);
+                $stage->setEmailContact($faker->email);
                 
                 //Formations
                 $formationDuStage = $faker->numberBetween($min = 1, $max = 3);
                 
-                
-                $entreprise->setStages($stage);
+                if(($formationDuStage-2)>= 0)
+                {
+                    $stage->addFormation($LPInfo);
+                    $LPInfo->addStage($stage);
+                    $formationDuStage-2;
+                }
+                if(($formationDuStage-1)>= 0)
+                {
+                    $stage->addFormation($dutInfo);
+                    $dutInfo->addStage($stage);
+                    $formationDuStage-1;
+                }
+                $entreprise->addStage($stage);
+                $manager->persist($stage);
             }
             $manager->persist($entreprise);
         }
@@ -52,7 +68,7 @@ class AppFixtures extends Fixture
 
 
         $manager->persist($dutInfo);
-        $manager->persist($dutInfo);
+        $manager->persist($LPInfo);
         $manager->flush();
     }
 }
