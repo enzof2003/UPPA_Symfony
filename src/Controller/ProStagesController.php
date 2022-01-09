@@ -51,7 +51,7 @@ class ProStagesController extends AbstractController
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
         $repositoryFormation=$this->getDoctrine()->getRepository(Formation::class);
         $tupleFormation= $repositoryFormation->find($id);
-        $stages=$repositoryStage->findByEntreprise($tupleFormation);
+        $stages=$repositoryStage->findByFormations($id);
         $titreFormation=$tupleFormation->getNomLong();
         return $this->render('pro_stages/formations.html.twig', [
             'controller_name' => 'ProStagesController',
@@ -67,16 +67,16 @@ class ProStagesController extends AbstractController
      */
     public function stages($id): Response
     {
+        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
+        $stageSelectionne= $repositoryStage->find($id);
+        $repositoryEntreprise=$this->getDoctrine()->getRepository(Entreprise::class);
+        $tupleEntreprise = $repositoryEntreprise->find($stageSelectionne->getEntreprise());
+        
+
 		return $this->render('pro_stages/stages.html.twig',[
         'id' => $id,
-        'titrePage' => 'Stage n°'.$id,
-        'titreOffre' => 'Offre de test',
-        'entreprise' => 'Entreprise',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pulvinar a risus a varius. Aliquam id elementum arcu. Mauris non dapibus elit. Proin malesuada mauris et libero mollis, quis tristique justo aliquet. Mauris eu malesuada tellus. Nam sodales vitae mauris at consectetur. Sed sed arcu congue, elementum tortor id, fringilla mauris.',
-        'formation' => 'DUT Info',
-        'adrMail' => 'test@test.com',
-        'siteWeb' => 'test.com',
-        'secteur' => 'Debugger'
+        'stage'=> $stageSelectionne,
+        'entreprise'=> $tupleEntreprise,
         ]);
     }
 }

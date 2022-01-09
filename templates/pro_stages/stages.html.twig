@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Entreprises{% endblock %}
-
 {% block body %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Stage n°{{id}}</title>
+        <title>{{stage.titre}}</title>
     </head>
     <body>
         <div class="main">
@@ -15,43 +13,42 @@
                     <h1> ProStage </h1>
                 </div>
                 <div class="titrePage">
-                    <h2>{{titrePage}}</h2>
+                    <h2>Information sur le l'offre de stage</h2>
                 </div>
         </div>
         <div class="infoStage">
             <div class="gauche">
                 <div class="headerGauche">
-                    <div class="imageOffre">
-
-                    </div>
                     <div class="titreOffre">
-                        <h1> {{titreOffre}} </h2>
+                        <h1> {{stage.titre}} </h1>
                     </div>
                     <div class="entreprise">
-                        <h3> Proposé par : {{entreprise}} </h3>
+                        <h3> Proposé par : {{entreprise.nom}} </h3>
                     </div>
                 </div>
                 <div class="description">
                     <h2> Description : </h2>
-                    <p> {{description}}
+                    <p> {{stage.descMission}}
                 </div>
                 <div class="id">
-                    <h4> ID : {{id}} </h4>
+                    <h4> ID : {{stage.id}} </h4>
                 </div>
-
             </div>
             <div class="droite">
                 <div class="formation">
-                    <h3> Formation : {{formation}} </h3>
+                    <h3> Formation :  </h3>
+                    {% for formation in stage.formations %}
+                        <h6><a href="/formations/{{formation.id}}"> {{formation.nomCourt}} </a></h6>
+                    {% endfor %}
                 </div>
                 <div class="contact">
-                    <h3> Mail de contact : {{adrMail}} </h3>
+                    <h3> Mail de contact : {{stage.emailContact}} </h3>
                 </div>
                 <div class="siteWeb">
-                    <h3> Site Web : {{siteWeb}} </h3>
+                    <h3> Site Web : {{entreprise.URLSite}} </h3>
                 </div>
                 <div class="secteur">
-                    <h3> Secteur d'activité : {{secteur}} </h3>
+                    <h3> Secteur d'activité : {{entreprise.activite}} </h3>
                 </div>
             </div>
             
