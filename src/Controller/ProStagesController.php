@@ -51,8 +51,7 @@ class ProStagesController extends AbstractController
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
         $repositoryFormation=$this->getDoctrine()->getRepository(Formation::class);
         $tupleFormation= $repositoryFormation->find($id);
-        $stages=$repositoryStage->findByFormations($id);
-        $titreFormation=$tupleFormation->getNomLong();
+        $stages=$repositoryStage->findByFormations($tupleFormation);
         return $this->render('pro_stages/formations.html.twig', [
             'controller_name' => 'ProStagesController',
             'formationCherche' => $titreFormation,
