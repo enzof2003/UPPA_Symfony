@@ -1,52 +1,87 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Entreprises{% endblock %}
+{% block title %}
+    Entreprises
+{% endblock %}
 
 {% block body %}
-<html>
-    <head>
-        <title>Accueil</title>
-    </head>
-    <body>
-        <div class="main">
-            <div class="header">
-                <div class="titreSite">
-                    <h1> ProStage </h1>
+    <html>
+        <head>
+            <title>
+                Accueil
+            </title>
+        </head>
+        <body>
+            <div class="main">
+                <div class="header">
+                    <div class="titreSite">
+                        <h1>
+                            ProStage 
+                        </h1>
+                    </div>
+                    <div class="titrePage">
+                        <h2>
+                            {{ titrePage }}
+                        </h2>
+                    </div>
                 </div>
-                <div class="titrePage">
-                    <h2>{{titrePage}}</h2>
+                <div class="optionsRecherches">
+                    <h3>
+                        Recherche par entreprise (
+                        {{ entrepriseCherche }}
+                        ) 
+                    </h3>
                 </div>
-            </div>
-            <div class="optionsRecherches">
-                <h3> Recherche par entreprise ({{entrepriseCherche}}) </h3>
-            </div>
 
-            {% for stage in stages %}
-                <div class="offreStage">
-                    <div class="gauche">
-                        <div class="titreOffre">
-                            <h3> {{stage.titre}} </h3>
-                        </div>
-                    </div>
-                    <div class="centre">
-                        <div class="centreHaut">
-                            <h4> Formation : </h4>
-                                {% for formation in stage.formations%}
-                                <h6><a href="/formations/{{formation.id}}"> {{formation.nomCourt}} </a></h6>
+                <div class="container">
+                    <hr>
+                    {% for stage in stages %}
+                        <div class="row">
+                            <div class="col">
+                                <h3>
+                                    {{ stage.titre }}
+                                </h3>
+                            </div>
+
+                            <div class="col">
+                                <h4>
+                                    Formation :                                                                                               
+                                                                                                        
+                                                                    
+                                </h4>
+                                {% for formation in stage.formations %}
+                                    <h5>
+                                        <a href="/formations/{{ formation.id }}">
+                                            {{ formation.nomCourt }}
+                                        </a>
+                                    </h5>
                                 {% endfor %}
-                            <h6>
+                            </div>
+                            <div class="col">
+                                <h4>
+                                    Entreprise :                                  
+                                                                                                        
+                                                                    
+                                </h4>
+                                <h5>
+                                    <a href="/entreprises/{{ stage.entreprise.id }}">
+                                        {{ stage.entreprise.nom }}
+                                    </a>
+                                </h5>
+                            </div>
+                            <div class="col my-auto">
+                                <button onclick="location.href='{{path('pro_stages-stages', {'id':stage.id}) }}'" type="button">
+                                    Plus d'informations                                                  
+                                                                                                                                        
+                                                                                                        
+                                                                    
+                                </button>
+                            </div>
                         </div>
-                        <div class="centreBas">
-                            <h4> Entreprise : </h4>
-                            <h6><a href="/entreprises/{{stage.entreprise.id}}"> {{stage.entreprise.nom}} </a></h6>
-                        </div>
-                    </div>
-                    <div class="droite">
-                        <button onclick="location.href='http://127.0.0.1:8000/stages/{#{{stage.id}}#}'" type="button">Plus d'informations</button>
-                    </div>
+                        <hr>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-    </body>
-</html>
+            </div>
+        </body>
+    </html>
 {% endblock %}

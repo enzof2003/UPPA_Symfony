@@ -2,6 +2,7 @@
 
 {% block title %}
     Accueil
+                            
                         
                     
                 
@@ -16,6 +17,7 @@
         <head>
             <title>
                 Accueil
+                                                                                                                            
                                                                                                             
                                                                                             
                                                                             
@@ -30,6 +32,7 @@
                     <div class="titreSite">
                         <h1>
                             ProStage                      
+                                                                                                                                                                    
                                                                                                                                         
                                                                                                             
                                                                                 
@@ -42,9 +45,9 @@
                         </h2>
                     </div>
                 </div>
-                
+
                 <div class="container">
-                <hr>
+                    <hr>
                     {% for stage in stages %}
                         <div class="row">
                             <div class="col">
@@ -56,6 +59,7 @@
                             <div class="col">
                                 <h4>
                                     Formation :                                                                                               
+                                                                    
                                 </h4>
                                 {% for formation in stage.formations %}
                                     <h5>
@@ -68,6 +72,7 @@
                             <div class="col">
                                 <h4>
                                     Entreprise :                                  
+                                                                    
                                 </h4>
                                 <h5>
                                     <a href="/entreprises/{{ stage.entreprise.id }}">
@@ -76,9 +81,10 @@
                                 </h5>
                             </div>
                             <div class="col my-auto">
-                                <button onclick="location.href='http://127.0.0.1:8000/stages/{{ stage.id }}'" type="button">
+                                <button onclick="location.href='{{path('pro_stages-stages', {'id':stage.id}) }}'" type="button">
                                     Plus d'informations                                                  
-                                                                
+                                                                                                    
+                                                                    
                                 </button>
                             </div>
                         </div>
