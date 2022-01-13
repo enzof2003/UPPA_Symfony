@@ -4,6 +4,7 @@
     Entreprises
 {% endblock %}
 
+
 {% block body %}
     <html>
         <head>
@@ -51,7 +52,7 @@
                                 </h4>
                                 {% for formation in stage.formations %}
                                     <h5>
-                                        <a href="/formations/{{ formation.id }}">
+                                        <a href="{{path('pro_stages-formations', {'id':formation.id}) }}">
                                             {{ formation.nomCourt }}
                                         </a>
                                     </h5>
@@ -64,7 +65,7 @@
                                                                     
                                 </h4>
                                 <h5>
-                                    <a href="/entreprises/{{ stage.entreprise.id }}">
+                                    <a href="{{path('pro_stages-entreprises', {'id':stage.entreprise.id }) }}">
                                         {{ stage.entreprise.nom }}
                                     </a>
                                 </h5>

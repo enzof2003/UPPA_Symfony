@@ -23,22 +23,22 @@
                         <h1> {{stage.titre}} </h1>
                     </div>
                     <div class="entreprise">
-                        <h3> Proposé par : {{entreprise.nom}} </h3>
+                        <h3> Proposé par : <a href="{{path('pro_stages-entreprises', {'id':stage.entreprise.id }) }}">
+                                        {{ stage.entreprise.nom }}
+                                    </a> </h3>
                     </div>
                 </div>
                 <div class="description">
                     <h2> Description : </h2>
                     <p> {{stage.descMission}}
                 </div>
-                <div class="id">
-                    <h4> ID : {{stage.id}} </h4>
-                </div>
+                
             </div>
             <div class="droite">
                 <div class="formation">
                     <h3> Formation :  </h3>
                     {% for formation in stage.formations %}
-                        <h6><a href="/formations/{{formation.id}}"> {{formation.nomCourt}} </a></h6>
+                        <h6><a href="{{path('pro_stages-formations', {'id':formation.id}) }}"> {{formation.nomCourt}} </a></h6>
                     {% endfor %}
                 </div>
                 <div class="contact">
@@ -51,6 +51,9 @@
                     <h3> Secteur d'activité : {{entreprise.activite}} </h3>
                 </div>
             </div>
+            <div class="id">
+                    <h4> ID : {{stage.id}} </h4>
+                </div>
             
         </div>
     </body>
