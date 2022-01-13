@@ -31,14 +31,14 @@
                     <div class="centre">
                         <div class="centreHaut">
                             <h4> Formation : </h4>
-                                {% for formation in stage.formations}
+                                {% for formation in stage.formations%}
                                 <h6><a href="/formations/{{formation.id}}"> {{formation.nomCourt}} </a></h6>
                                 {% endfor %}
                             <h6>
                         </div>
                         <div class="centreBas">
                             <h4> Entreprise : </h4>
-                            <h6><a href="/entreprises/{{entreprise.id}}"> {{entreprise.nom}} </a></h6>
+                            <h6><a href="/entreprises/{{stage.entreprise.id}}"> {{stage.entreprise.nom}} </a></h6>
                         </div>
                     </div>
                     <div class="droite">
