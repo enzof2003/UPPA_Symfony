@@ -43,23 +43,20 @@ class ProStagesController extends AbstractController
         
     }
 	
-		/**
+	/**
      * @Route("/formations/{id}", name="pro_stages-formations")
      */
     public function formations($id): Response
     {
-        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
-        $repositoryFormation=$this->getDoctrine()->getRepository(Formation::class);
-        $tupleFormation=$repositoryFormation->find($id);
-        //$stages=$repositoryStage->findAll();
-        $stages=$tupleFormation->getStages();
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+        $formation=$repositoryFormation->Find($id);
+        $titreFormation=$formation->getNomLong();
+        $listeStages=$formation->getStages();
         return $this->render('pro_stages/formations.html.twig', [
-            'controller_name' => 'ProStagesController',
-            'formationCherche' => $tupleFormation,
-            'titrePage' => 'Recherche par formation',
-            'stages'=> $stages,
-        ]);
-        
+            'controller_name' => 'Cette page affichera la liste des formations de l\'IUT',
+            'formation'=>$formation,
+            'titreFormation'=>$titreFormation,
+            'listeStages'=>$listeStages,]);
     }
 	
 		/**

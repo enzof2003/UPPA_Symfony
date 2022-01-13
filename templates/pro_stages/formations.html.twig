@@ -14,14 +14,14 @@
                     <h1> ProStage </h1>
                 </div>
                 <div class="titrePage">
-                    <h2>{{titrePage}}</h2>
+                    <h2>Formations</h2>
                 </div>
             </div>
             <div class="optionsRecherches">
-                <h3> Recherche par formation ({{formationCherche.nomLong}}) </h3>
+                <h3> Recherche par formation ({{formation.nomLong}}) </h3>
             </div>
 
-            {% for stage in stages %}
+            {% for stage in formation.stages %}
                 <div class="offreStage">
                     <div class="gauche">
                         <div class="titreOffre">

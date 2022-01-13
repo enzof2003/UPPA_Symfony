@@ -20,17 +20,17 @@ class Formation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=1000)
      */
     private $nomLong;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=500)
      */
     private $nomCourt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Stage::class, mappedBy="formation")
+     * @ORM\ManyToMany(targetEntity=Stage::class, mappedBy="formations")
      */
     private $stages;
 
