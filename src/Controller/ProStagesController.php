@@ -19,8 +19,6 @@ class ProStagesController extends AbstractController
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
         $stages=$repositoryStage->findAll();
         return $this->render('pro_stages/index.html.twig', [
-            'controller_name' => 'ProStagesController',
-            'titrePage' => 'Page d\'accueil',
             'stages'=> $stages,
         ]);
     }
@@ -35,9 +33,7 @@ class ProStagesController extends AbstractController
         $stages=$repositoryStage->findByEntreprise($tupleEntreprise);
         $titreEntreprise=$tupleEntreprise->getNom();
         return $this->render('pro_stages/entreprises.html.twig', [
-            'controller_name' => 'ProStagesController',
             'entrepriseCherche' => $titreEntreprise,
-            'titrePage' => 'Recherche par entreprise',
             'stages'=> $stages,
         ]);
         
@@ -53,7 +49,6 @@ class ProStagesController extends AbstractController
         $titreFormation=$formation->getNomLong();
         $listeStages=$formation->getStages();
         return $this->render('pro_stages/formations.html.twig', [
-            'controller_name' => 'Cette page affichera la liste des formations de l\'IUT',
             'formation'=>$formation,
             'titreFormation'=>$titreFormation,
             'listeStages'=>$listeStages,]);
