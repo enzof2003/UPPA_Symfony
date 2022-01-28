@@ -17,7 +17,7 @@ class ProStagesController extends AbstractController
     public function index(): Response
     {
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
-        $stages=$repositoryStage->findAll();
+        $stages=$repositoryStage->retriveStagesEtEntreprises();
         return $this->render('pro_stages/index.html.twig', [
             'stages'=> $stages,
         ]);
@@ -30,7 +30,7 @@ class ProStagesController extends AbstractController
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
         $repositoryEntreprise=$this->getDoctrine()->getRepository(Entreprise::class);
         $tupleEntreprise = $repositoryEntreprise->find($id);
-        $stages=$repositoryStage->findByEntreprise($tupleEntreprise);
+        $stages=$repositoryStage->retriveStagesEtEntreprisesParEntreprise($tupleEntreprise->getId());
         $titreEntreprise=$tupleEntreprise->getNom();
         return $this->render('pro_stages/entreprises.html.twig', [
             'entrepriseCherche' => $titreEntreprise,
@@ -47,7 +47,9 @@ class ProStagesController extends AbstractController
         $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
         $formation=$repositoryFormation->Find($id);
         $titreFormation=$formation->getNomLong();
-        $listeStages=$formation->getStages();
+        $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
+        $listeStages=$repositoryStage-> retriveStagesEtEntreprisesParFormation($titreFormation);
+        
         return $this->render('pro_stages/formations.html.twig', [
             'formation'=>$formation,
             'titreFormation'=>$titreFormation,
