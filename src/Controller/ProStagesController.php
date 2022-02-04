@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ObjectManager;
 
 class ProStagesController extends AbstractController
 {
@@ -77,7 +80,7 @@ class ProStagesController extends AbstractController
     /**
      * @Route("/ajouter/entreprise", name="pro_stages-ajouter-entreprise")
      */
-    public function ajouterEntreprise(): Response
+    public function ajouterEntreprise(Request $request, ObjectManager $manager): Response
     {
 
         $entreprise = new Entreprise();
@@ -90,6 +93,17 @@ class ProStagesController extends AbstractController
         ->add('nom')
         ->add('URLSite')
         ->getForm();
+
+        $formulaireEntreprise->handleRequest($request);
+
+        
+        if($formulaireEntreprise->isSubmitted())
+        {
+            $manager->persist($entreprise);
+            $manager->flush();
+        }
+        
+        dump($entreprise);
 
 
         //Représentation graphique du form
