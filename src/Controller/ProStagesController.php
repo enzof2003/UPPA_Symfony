@@ -73,4 +73,28 @@ class ProStagesController extends AbstractController
         'entreprise'=> $tupleEntreprise,
         ]);
     }
+
+    /**
+     * @Route("/ajouter/entreprise", name="pro_stages-ajouter-entreprise")
+     */
+    public function ajouterEntreprise(): Response
+    {
+
+        $entreprise = new Entreprise();
+
+        //Création du formulaire
+
+        $formulaireEntreprise = $this->createFormBuilder($entreprise)
+        ->add('activite')
+        ->add('adresse')
+        ->add('nom')
+        ->add('URLSite')
+        ->getForm();
+
+
+        //Représentation graphique du form
+        $vueFormulaire = $formulaireEntreprise->createView();
+
+        return $this->render('pro_stages/ajoutEntreprise.html.twig', ['vueFormulaire' => $vueFormulaire]);
+    }
 }
