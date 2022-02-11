@@ -10,7 +10,7 @@ use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Persistence\ObjectManager;
+use  Doctrine\ORM\EntityManagerInterface;
 
 class ProStagesController extends AbstractController
 {
@@ -77,12 +77,15 @@ class ProStagesController extends AbstractController
         ]);
     }
 
+    /////////////////////////////////////////////////////////
+    /// A FAIRE : MODIFICATION D'UNE ENTREPRISE /////////////
+    /////////////////////////////////////////////////////////
+
     /**
      * @Route("/ajouter/entreprise", name="pro_stages-ajouter-entreprise")
      */
-    public function ajouterEntreprise(Request $request, ObjectManager $manager): Response
+    public function ajouterEntreprise(Request $request, EntityManagerInterface $manager): Response
     {
-
         $entreprise = new Entreprise();
 
         //Création du formulaire
@@ -97,7 +100,7 @@ class ProStagesController extends AbstractController
         $formulaireEntreprise->handleRequest($request);
 
         
-        if($formulaireEntreprise->isSubmitted())
+        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
         {
             $manager->persist($entreprise);
             $manager->flush();

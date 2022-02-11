@@ -24,7 +24,7 @@
 
                 <div class="container">
                     <h1> Veuillez saisir les informations de l'entreprise que vous souhaitez ajouter </h1>
-                    {{ form_start(vueFormulaire) }}
+                    {{ form_start(vueFormulaire, {'attr':{'novalidate': 'novalidate '}}) }}
                         {{ form_row(vueFormulaire.activite) }}
                         {{ form_row(vueFormulaire.nom) }}
                         {{ form_row(vueFormulaire.activite) }}
