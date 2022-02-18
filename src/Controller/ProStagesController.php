@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use App\Form\EntrepriseType;
 use Symfony\Component\HttpFoundation\Request;
 use  Doctrine\ORM\EntityManagerInterface;
 
@@ -82,6 +83,33 @@ class ProStagesController extends AbstractController
     /////////////////////////////////////////////////////////
 
     /**
+     * @Route("/modifier/entreprise/{id}", name="pro_stages-modifier-entreprise")
+     */
+    public function modifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise): Response
+    {
+        //Création du formulaire
+
+        $formulaireEntreprise=$this->createForm(EntrepriseType::class, $entreprise);
+
+        $formulaireEntreprise->handleRequest($request);
+
+        
+        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
+        {
+            $manager->persist($entreprise);
+            $manager->flush();
+        }
+        
+        dump($entreprise);
+
+
+        //Représentation graphique du form
+        $vueFormulaire = $formulaireEntreprise->createView();
+
+        return $this->render('pro_stages/modifierEntreprise.html.twig', ['vueFormulaire' => $vueFormulaire]);
+    }
+
+    /**
      * @Route("/ajouter/entreprise", name="pro_stages-ajouter-entreprise")
      */
     public function ajouterEntreprise(Request $request, EntityManagerInterface $manager): Response
@@ -90,12 +118,7 @@ class ProStagesController extends AbstractController
 
         //Création du formulaire
 
-        $formulaireEntreprise = $this->createFormBuilder($entreprise)
-        ->add('activite')
-        ->add('adresse')
-        ->add('nom')
-        ->add('URLSite')
-        ->getForm();
+        $formulaireEntreprise=$this->createForm(EntrepriseType::class, $entreprise);
 
         $formulaireEntreprise->handleRequest($request);
 

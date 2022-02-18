@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier une entreprise
+{% endblock %}
+
+{% block body %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>
+                Modification
+            </title>
+        </head>
+        <body>
+            <div class="main">
+                <div class="header">
+                    <div class="titrePage">
+                        <h1> Veuillez saisir les informations de l'entreprise que vous souhaitez modifier </h1>
+                        {{ form_start(vueFormulaire, {'attr':{'novalidate': 'novalidate '}}) }}
+                        {{ form_row(vueFormulaire.activite) }}
+                        {{ form_row(vueFormulaire.nom) }}
+                        {{ form_row(vueFormulaire.activite) }}
+                        {{ form_row(vueFormulaire.adresse) }}
+                        {{ form_row(vueFormulaire.URLSite) }}
+                        <br>
+                        <button type="submit" class="btn btn-dark">Envoyer</button>
+                        
+                    {{ form_end(vueFormulaire) }}
+                    </div>
+                </div>
+
+                <div class="container">
+                    
+                </div>
+            </div>
+        </body>
+    </html>
+</div></body></html></body></html></div></body></html>{% endblock %}
