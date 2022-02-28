@@ -1,18 +1,23 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        in_memory :
+            memory :
+                users : 
+                    administrateur : { password : $2y$10$wmoJYMlqIbaHovWOBg5eFuuyUhuLj0wmcsQ5VXkK34RvawJX.wI1u , roles : ROLE_ADMIN }
+                    utilisateur : { password : $2y$10$/ioSXTwPcBtlGCBCtiXJO.m0gQaA16fRsg2Hu9krZ2BhmfjtSxlTW , roles : ROLE_USER }
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
-            provider: users_in_memory
+            anonymous: false
+            #provider: users_in_memory
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-
+            http_basic: true
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
@@ -21,3 +26,11 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy :
+        ROLE_ADMIN : ROLE_USER
+    encoders :
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 10
+        App\Entity\User:
+            algorithm: auto

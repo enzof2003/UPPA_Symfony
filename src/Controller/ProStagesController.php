@@ -12,6 +12,7 @@ use App\Entity\Formation;
 use App\Form\EntrepriseType;
 use Symfony\Component\HttpFoundation\Request;
 use  Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProStagesController extends AbstractController
 {
@@ -78,12 +79,9 @@ class ProStagesController extends AbstractController
         ]);
     }
 
-    /////////////////////////////////////////////////////////
-    /// A FAIRE : MODIFICATION D'UNE ENTREPRISE /////////////
-    /////////////////////////////////////////////////////////
-
     /**
      * @Route("/modifier/entreprise/{id}", name="pro_stages-modifier-entreprise")
+     * @IsGranted ("ROLE_ADMIN")
      */
     public function modifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise): Response
     {
@@ -111,8 +109,45 @@ class ProStagesController extends AbstractController
 
     /**
      * @Route("/ajouter/entreprise", name="pro_stages-ajouter-entreprise")
+     * @IsGranted ("ROLE_ADMIN")
      */
     public function ajouterEntreprise(Request $request, EntityManagerInterface $manager): Response
+    {
+        $entreprise = new Entreprise();
+
+        //Création du formulaire
+
+        $formulaireEntreprise=$this->createForm(EntrepriseType::class, $entreprise);
+
+        $formulaireEntreprise->handleRequest($request);
+
+        
+        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
+        {
+            $manager->persist($entreprise);
+            $manager->flush();
+        }
+        
+        dump($entreprise);
+
+
+        //Représentation graphique du form
+        $vueFormulaire = $formulaireEntreprise->createView();
+
+        return $this->render('pro_stages/ajoutEntreprise.html.twig', ['vueFormulaire' => $vueFormulaire]);
+    }
+
+
+    /////////////////////////////////////////////////////////
+    /// A FAIRE : CREATION DE STAGE             /////////////
+    /////////////////////////////////////////////////////////
+
+
+    /**
+     * @Route("/ajouter/stage", name="pro_stages-ajouter-stage")
+     * @IsGranted ("ROLE_USER")
+     */
+    public function ajouterStage(Request $request, EntityManagerInterface $manager): Response
     {
         $entreprise = new Entreprise();
 
