@@ -21,12 +21,34 @@ class ProStagesController extends AbstractController
      */
     public function index(): Response
     {
+        /*$formEntreprise = $this->createFormBuilder($data)
+        ->add('value', TextType::class, array('required' => false))
+        ->getForm();*/
+
+        $repositoryEntreprise=$this->getDoctrine()->getRepository(Entreprise::class);
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+        $entreprises = $repositoryEntreprise->findAll();
+        $formations = $repositoryFormation->findAll();
+        return $this->render('pro_stages/index.html.twig', [
+            'formations'=> $formations,
+            'entreprises'=> $entreprises,
+        ]);
+    }
+
+
+    /**
+     * @Route("/tous-les-stages", name="pro_stages-tous-les-stages")
+     */
+    public function tousLesStages(): Response
+    {
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
         $stages=$repositoryStage->retriveStagesEtEntreprises();
-        return $this->render('pro_stages/index.html.twig', [
+        return $this->render('pro_stages/listeStages.html.twig', [
             'stages'=> $stages,
         ]);
     }
+
+
 	/**
      * @Route("/entreprises/{id}", name="pro_stages-entreprises")
      */

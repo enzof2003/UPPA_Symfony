@@ -13,61 +13,44 @@
             </title>
         </head>
         <body>
-            <div class="main">
-                <div class="header">
-                    <div class="titrePage">
-                        <h2>
-                            Page d'accueil
-                        </h2>
+            <div class="text-center">
+                <h1>Bienvenue sur Prostage !<h1>
+                <br>
+                <h2> Que voulez-vous faire ? </h2> <br> <br>
+            </div>
+            <div id="listeBoutonsChoix" class="text-center"> 
+                <a href="{{path('pro_stages-tous-les-stages')}}">
+                    <button type="button" class="btn btn-primary">Voir tous les stages disponibles</button>
+                </a>
+            </div>
+            <br><br>
+            <div id="lesDeuxAutresPossibilites" class="container">
+                <div class="row">
+                    <div class="col-sm text-center"> 
+                        <h4> Par entreprise </h4>
+                        <div class="">
+                            {% for entreprise in entreprises %}
+                                <a href="{{path('pro_stages-entreprises', {'id':entreprise.id }) }}">
+                                        <button class="btn btn-outline-secondary m-2"> {{ entreprise.nom }} </button><br>
+                                    </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-sm text-center"> 
+                        <h4> Par formation</h4>
+                        <div class="">
+                            {% for formation in formations %}
+                                <a href="{{path('pro_stages-formations', {'id':formation.id}) }}">
+                                             <button class="btn btn-outline-secondary m-2"> {{ formation.nomCourt }} </button><br>
+                                        </a>
+                            {% endfor %}
+                        </div>
+                    
                     </div>
                 </div>
-
-                <div class="container">
-                    <hr>
-                    {% for stage in stages %}
-                        <div class="row">
-                            <div class="col">
-                                <h3>
-                                    {{ stage.titre }}
-                                </h3>
-                            </div>
-
-                            <div class="col">
-                                <h4>
-                                    Formation :                                                                                               
-                                                                    
-                                </h4>
-                                {% for formation in stage.formations %}
-                                    <h5>
-                                        <a href="{{path('pro_stages-formations', {'id':formation.id}) }}">
-                                            {{ formation.nomCourt }}
-                                        </a>
-                                    </h5>
-                                {% endfor %}
-                            </div>
-                            <div class="col">
-                                <h4>
-                                    Entreprise :                                  
-                                                                    
-                                </h4>
-                                <h5>
-                                    <a href="{{path('pro_stages-entreprises', {'id':stage.entreprise.id }) }}">
-                                        {{ stage.entreprise.nom }}
-                                    </a>
-                                </h5>
-                            </div>
-                            <div class="col my-auto">
-                                <button onclick="location.href='{{path('pro_stages-stages', {'id':stage.id}) }}'" type="button">
-                                    Plus d'informations                                                  
-                                                                                                    
-                                                                    
-                                </button>
-                            </div>
-                        </div>
-                        <hr>
-                    {% endfor %}
-                </div>
             </div>
+
         </body>
     </html>
 </div></body></html></body></html></div></body></html>{% endblock %}
