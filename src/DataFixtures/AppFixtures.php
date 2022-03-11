@@ -8,11 +8,25 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use App\Entity\User;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $utilisateur = new User();
+        $utilisateur->setUsername("utilisateur");
+        $utilisateur->setPassword("$2y$10\$xnrH19kyib7b3MEaEDF6l.iiUtrAkKkFkDwRqAVkyjaphUL.UdzHO");
+        $utilisateur->setRoles(['ROLE_USER']);
+
+        $administrateur = new User();
+        $administrateur->setUsername("administrateur");
+        $administrateur->setPassword("$2y$10\$s2/CnSZpzIPwCVnVnvFJ9.AWCc.sD3a5.mcEO3TJQQdbYVHbqiAJK");
+        $administrateur->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($utilisateur);
+        $manager->persist($administrateur);
+
         //Générateur Faker
         $faker = \Faker\Factory::create('fr_FR');
 
@@ -25,7 +39,7 @@ class AppFixtures extends Fixture
         $LPInfo->setNomCourt("LP Mult.");
         
 
-        $nbEntreprises = $faker->numberBetween($min = 5, $max = 10);
+        $nbEntreprises = $faker->numberBetween($min = 15, $max = 40);
         for($i = 0; $i < $nbEntreprises ; $i++)
         {
             $entreprise = new Entreprise();
@@ -35,7 +49,7 @@ class AppFixtures extends Fixture
             $entreprise->setURLSite($faker->domainName);
             
             //Génération des stages de chaque entreprise
-            $nbStages = $faker->numberBetween($min = 0, $max = 4);
+            $nbStages = $faker->numberBetween($min = 0, $max = 9);
             for($j = 0; $j < $nbStages ; $j++)
             {
                 $stage = new Stage;
@@ -46,18 +60,20 @@ class AppFixtures extends Fixture
                 
                 //Formations
                 $formationDuStage = $faker->numberBetween($min = 1, $max = 3);
-                
-                if(($formationDuStage-2)>= 0)
-                {
-                    $stage->addFormation($LPInfo);
-                    $LPInfo->addStage($stage);
-                    $formationDuStage-2;
-                }
-                if(($formationDuStage-1)>= 0)
-                {
-                    $stage->addFormation($dutInfo);
-                    $dutInfo->addStage($stage);
-                    $formationDuStage-1;
+                switch ($formationDuStage) {
+                    case '1':
+                        $stage->addFormation($LPInfo);
+                        $LPInfo->addStage($stage);
+                        break;
+                    case '2':
+                        $stage->addFormation($dutInfo);
+                        $dutInfo->addStage($stage);
+                        break;
+                    default:
+                        $stage->addFormation($LPInfo);
+                        $stage->addFormation($dutInfo);
+                        $LPInfo->addStage($stage);
+                        break;
                 }
                 $entreprise->addStage($stage);
                 $manager->persist($stage);
