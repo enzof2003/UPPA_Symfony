@@ -13,12 +13,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: false
+            anonymous: true
             #provider: users_in_memory
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-            http_basic: true
+            # http_basic: true
             guard:
                 authenticators:
                     - App\Security\FormulaireLoginAuthenticator

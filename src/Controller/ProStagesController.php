@@ -160,12 +160,6 @@ class ProStagesController extends AbstractController
         return $this->render('pro_stages/ajoutEntreprise.html.twig', ['vueFormulaire' => $vueFormulaire]);
     }
 
-
-    /////////////////////////////////////////////////////////
-    /// A FAIRE : CREATION DE STAGE             /////////////
-    /////////////////////////////////////////////////////////
-
-
     /**
      * @Route("/ajouter/stage", name="pro_stages-ajouter-stage")
      * @IsGranted ("ROLE_USER")

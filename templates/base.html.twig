@@ -22,6 +22,9 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <h1><a class="navbar-brand" href="{{path('pro_stages-accueil')}}">ProStage</a></h1>
+      {% if is_granted('ROLE_USER') %}
+        <h6> Deconnexion </h6>
+      {% endif %}
       {% block header %}{% endblock %}
 
 </nav>
