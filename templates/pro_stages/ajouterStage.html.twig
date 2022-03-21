@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter une entreprise
+{% endblock %}
+
+{% block body %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>
+                Ajout
+            </title>
+        </head>
+        <body>
+            <div class="main">
+                <div class="header">
+                    <div class="titrePage">
+                        <h2>
+                            Ajouter un stage
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h1> Veuillez saisir les informations du stage que vous souhaitez ajouter </h1>
+                    {{ form_start(vueFormulaire, {'attr':{'novalidate': 'novalidate '}}) }}
+                        {{ form_row(vueFormulaire.titre) }}
+                        {{ form_row(vueFormulaire.descMission) }}
+                        {{ form_row(vueFormulaire.emailContact) }}
+                        <br>
+                        <h4> Entreprise </h4>
+                        {{ form_row(vueFormulaire.entreprise.activite) }}
+                        {{ form_row(vueFormulaire.entreprise.nom) }}
+                        {{ form_row(vueFormulaire.entreprise.activite) }}
+                        {{ form_row(vueFormulaire.entreprise.adresse) }}
+                        {{ form_row(vueFormulaire.entreprise.URLSite) }}
+                        <br>
+                        <h4> Formations </h4>
+                        {{ form_row(vueFormulaire.formations) }}
+                        <br>
+                        <button type="submit" class="btn btn-dark">Envoyer</button>
+                        
+                    {{ form_end(vueFormulaire) }}
+                </div>
+            </div>
+        </body>
+    </html>
+</div></body></html></body></html></div></body></html>{% endblock %}

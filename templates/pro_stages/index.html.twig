@@ -28,9 +28,9 @@
                 <div class="row">
                     <div class="col-sm text-center"> 
                         <h4> Par entreprise </h4>
-                        <div class="">
+                        <div>
                             {% for entreprise in entreprises %}
-                                <a href="{{path('pro_stages-entreprises', {'id':entreprise.id }) }}">
+                                <a href="{{path('pro_stages-entreprises', {'id':entreprise.id }) }}" class="">
                                         <button class="btn btn-outline-secondary m-2"> {{ entreprise.nom }} </button><br>
                                     </a>
                             {% endfor %}

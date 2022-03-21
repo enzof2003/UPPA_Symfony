@@ -10,6 +10,7 @@ use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Form\EntrepriseType;
+use App\Form\StageType;
 use Symfony\Component\HttpFoundation\Request;
 use  Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -171,27 +172,27 @@ class ProStagesController extends AbstractController
      */
     public function ajouterStage(Request $request, EntityManagerInterface $manager): Response
     {
-        $entreprise = new Entreprise();
+        $stage = new Stage();
 
         //Création du formulaire
 
-        $formulaireEntreprise=$this->createForm(EntrepriseType::class, $entreprise);
+        $formulaireStage=$this->createForm(StageType::class, $stage);
 
-        $formulaireEntreprise->handleRequest($request);
+        $formulaireStage->handleRequest($request);
 
         
-        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
+        if($formulaireStage->isSubmitted() && $formulaireStage->isValid())
         {
-            $manager->persist($entreprise);
+            $manager->persist($stage);
             $manager->flush();
         }
         
-        dump($entreprise);
+        dump($stage);
 
 
         //Représentation graphique du form
-        $vueFormulaire = $formulaireEntreprise->createView();
+        $vueFormulaire = $formulaireStage->createView();
 
-        return $this->render('pro_stages/ajoutEntreprise.html.twig', ['vueFormulaire' => $vueFormulaire]);
+        return $this->render('pro_stages/ajouterStage.html.twig', ['vueFormulaire' => $vueFormulaire]);
     }
 }
