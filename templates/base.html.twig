@@ -18,13 +18,15 @@
     </head>
     <body>
 <header>
-    <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <h1><a class="navbar-brand" href="{{path('pro_stages-accueil')}}">ProStage</a></h1>
-      {% if is_granted('ROLE_USER') %}
-        <h6> Deconnexion </h6>
-      {% endif %}
+    <nav class="navbar navbar-expand-sm navbar-default">
+    <ul class="nav">
+                        <li><h1><a class="nav-link" href="{{path('pro_stages-accueil')}}">ProStage</a></h1></li>
+                        {% if is_granted('ROLE_USER') %}
+                            <h1><a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a></h1>
+                        {% else %}
+                            <h1><a class="nav-link" href="{{path('app_login')}}">Se connecter</a></h1>
+                        {% endif %}
+                        </ul>
       {% block header %}{% endblock %}
 
 </nav>
