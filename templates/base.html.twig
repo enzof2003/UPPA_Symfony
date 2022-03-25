@@ -20,13 +20,23 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-default">
     <ul class="nav">
-                        <li><h1><a class="nav-link" href="{{path('pro_stages-accueil')}}">ProStage</a></h1></li>
-                        {% if is_granted('ROLE_USER') %}
-                            <h1><a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a></h1>
-                        {% else %}
-                            <h1><a class="nav-link" href="{{path('app_login')}}">Se connecter</a></h1>
-                        {% endif %}
-                        </ul>
+        <li><h1><a class="nav-link" href="{{path('pro_stages-accueil')}}">ProStage</a></h1></li>
+        {% if is_granted('ROLE_USER') %}
+            <h1> | </h1>
+            <li><h1><a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a></h1></li>
+        {% else %}
+            <h1> | </h1>
+            <li><h1><a class="nav-link" href="{{path('app_login')}}">Se connecter</a></h1></li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <h1> | </h1>
+            <li><h1><a class="nav-link" href="{{path('easyadmin')}}">Administration</a></h1></li>
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <h1> | </h1>
+            <li><h1><a class="nav-link" href="{{path('pro_stages-ajouter-stage')}}">Ajouter stage</a></h1></li>
+        {% endif %}
+        </ul>
       {% block header %}{% endblock %}
 
 </nav>
