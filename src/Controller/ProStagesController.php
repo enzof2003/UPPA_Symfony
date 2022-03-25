@@ -51,7 +51,7 @@ class ProStagesController extends AbstractController
 
 
 	/**
-     * @Route("/entreprises/{id}", name="pro_stages-entreprises")
+     * @Route("/recherche/entreprises/{id}", name="pro_stages-entreprises")
      */
     public function entreprises($id): Response
     {
@@ -68,7 +68,7 @@ class ProStagesController extends AbstractController
     }
 	
 	/**
-     * @Route("/formations/{id}", name="pro_stages-formations")
+     * @Route("/recherche/formations/{id}", name="pro_stages-formations")
      */
     public function formations($id): Response
     {
